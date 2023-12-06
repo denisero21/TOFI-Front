@@ -12,7 +12,8 @@ import { TransferComponent } from './pages/transfer/transfer.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {TokenInterceptor} from "./token.interceptor";
 import {RouterModule} from "@angular/router";
-import { CryptoComponent } from './pages/crypto/crypto.component';
+import { FormsModule } from '@angular/forms';
+import {CryptoComponent} from "./pages/crypto/crypto.component";
 
 @NgModule({
   declarations: [
@@ -23,13 +24,14 @@ import { CryptoComponent } from './pages/crypto/crypto.component';
     AuthComponent,
     HomeComponent,
     TransferComponent,
-    CryptoComponent
+    CryptoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

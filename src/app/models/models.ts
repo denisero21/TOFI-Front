@@ -41,10 +41,15 @@ export type UserDto = {
 
 export type CryptoRates = {
   name: string;
-  currencies: Record<string, number>;
+  currencies: Rate[];
 }
 
-export interface CreateCreditDto {
+export type Rate = {
+    key: string,
+    value: number
+}
+
+export type CreateCreditDto = {
   account_id: number;
   term: 'MONTH_3' | 'MONTH_6' | 'MONTH_12';
   payment_type: 'MANUAL';
@@ -52,11 +57,11 @@ export interface CreateCreditDto {
   is_notification_enabled: boolean;
 }
 
-export interface MakePaymentRequest {
+export type MakePaymentRequest = {
   sum_to_pay: number;
 }
 
-export interface Credit {
+export type Credit = {
   id: number;
   name: string;
   date: Date;
@@ -71,5 +76,19 @@ export interface Credit {
   status: 'NEW' | 'APPROVED' | 'PAID';
   payment_type: 'MANUAL';
   is_notification_enabled: boolean;
+}
+
+export type Login = {
+  login: String,
+  password: String
+}
+
+export type JwtToken = {
+  token: String,
+  otpExpiration: String
+}
+
+export type ConfirmOtpRequest = {
+  otp_code: number
 }
 

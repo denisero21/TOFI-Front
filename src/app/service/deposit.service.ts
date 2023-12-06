@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {catchError, Observable, throwError} from 'rxjs';
-import {Deposit} from "../models/models";
+import {Deposit, DepositDto} from "../models/models";
 import {API_URL} from "../app.config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DepositService {
-
-  private apiUrl = API_URL;
-
   constructor(private http: HttpClient) { }
 
-  createDeposit(userId: number, depositData: any): Observable<any> {
+  createDeposit(userId: number, depositData: DepositDto): Observable<any> {
     return this.http.post(`api/api/users/${userId}/deposit`, depositData, { withCredentials: true });
   }
 
   closeDeposit(depositId: number): Observable<any> {
-    return this.http.post(`api/api/users/deposit/${depositId}/close`, {}, { withCredentials: true });
+    return this.http.post(`api/api/users/:user_id/deposit/${depositId}/close`, {}, { withCredentials: true });
   }
 
   getUsersDeposits(userId: number): Observable<Deposit[]> {
@@ -30,6 +27,7 @@ export class DepositService {
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.error('API Error:', error);
-    return throwError('Something went wrong; please try again later.');
+    alert(Array.isArray(error.error?.error_description) ? error.error.error_description[0] : 'Something went wrong; please try again later.');
+    return throwError(`Something went wrong; please try again later. Error: ${error}`);
   }
 }

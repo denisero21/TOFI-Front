@@ -8,9 +8,6 @@ import { API_URL } from "../app.config";
   providedIn: 'root'
 })
 export class CreditService {
-
-  private apiUrl = API_URL;
-
   constructor(private http: HttpClient) { }
 
   createCredit(userId: number, creditData: CreateCreditDto): Observable<any> {

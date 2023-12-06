@@ -1,3 +1,8 @@
 <button (click)="loadDeposits()">Загрузить депозиты</button>
 <button (click)="createDeposit()">Открыть депозит</button>
-<button (click)="closeDeposit()">Закрыть депозит</button>
+
+
+<div class="deposits" *ngFor="let deposit of deposits">
+  <p>No: {{deposit.id}} | Сумма: {{deposit.amount}} | Дата открытия: {{deposit.date}} | Срок: {{deposit.term}} | Статус: {{deposit.status}}</p>
+  <button (click)="closeDeposit(deposit.id)" *ngIf="deposit.status!=='CLOSED'">Закрыть депозит</button>
+</div>

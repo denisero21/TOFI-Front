@@ -1,11 +1,39 @@
-.auth input{
-  width: 300px;
+input{
+  width: 400px;
   display: block;
   margin: 0 auto;
   margin-bottom: 20px;
   text-align: center;
+  border-radius: 10px;
+  height: 30px;
+  border-color: #EB5F27;
 }
-.auth button{
+
+input:hover{
+  border-color: #EB2221;
+}
+
+button{
   display:block;
   margin: 0 auto;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  width: 250px;
+  height: 35px;
+  color: aliceblue;
+  background: #EB5F27;
+  border-color: #EB5F27;
 }
+
+button:hover{
+  background: #EB2221;
+}
+
+label{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+

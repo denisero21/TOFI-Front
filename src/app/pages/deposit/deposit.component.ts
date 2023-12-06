@@ -19,9 +19,6 @@ export class DepositComponent implements OnInit {
     amount: 10,
     deposit_type: 'REVOCABLE'
   }
-
-  depositId = 4;
-
   constructor(private route: ActivatedRoute, private depositService: DepositService) { }
 
   ngOnInit(): void {
@@ -49,6 +46,7 @@ export class DepositComponent implements OnInit {
       () => {
         console.log('Deposit created successfully');
         this.loadDeposits();
+        alert("Депозит успешно открыт")
       },
       (error) => {
         console.error('Error creating deposit:', error);
@@ -57,11 +55,12 @@ export class DepositComponent implements OnInit {
   }
 
 
-  closeDeposit(): void {
-    this.depositService.closeDeposit(this.depositId).subscribe(
+  closeDeposit(depositId: number): void {
+    this.depositService.closeDeposit(depositId).subscribe(
       () => {
         console.log('Deposit closed successfully');
         this.loadDeposits();
+        alert("Депозит успешно закрыт")
       },
       (error) => {
         console.error('Error closing deposit:', error);

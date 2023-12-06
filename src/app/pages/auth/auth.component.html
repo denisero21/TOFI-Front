@@ -1,10 +1,31 @@
-<p>auth works!</p>
 <div class="auth">
-  <input [(ngModel)]="loginData.login" placeholder="login">
-  <input [(ngModel)]="loginData.password" placeholder="password">
-  <button (click)="authenticate()">Авторизоваться</button>
+  <label *ngIf="!isRegister">Логин</label>
+  <input [(ngModel)]="loginData.login" *ngIf="!isRegister" placeholder="login" type="email" name="login">
+  <label *ngIf="!isRegister">Пароль</label>
+  <input [(ngModel)]="loginData.password" *ngIf="!isRegister" placeholder="password" type="password">
+  <button (click)="authenticate()" *ngIf="!isRegister">Авторизоваться</button>
+  <button (click)="register()" *ngIf="!isRegister">Регистрация</button>
 </div>
 <p></p>
-<input [(ngModel)]="otpData.otp_code" *ngIf="isTwoFactor" placeholder="otp code">
-<button *ngIf="isTwoFactor" (click)="confirmOtp()">Подтвердить авторизацию</button>
-<button *ngIf="isTwoFactor && isEnableToRefresh" (click)="refreshOtp()">Отправить код еще раз</button>
+<div class="two-factor">
+  <label *ngIf="isTwoFactor && !isRegister">Код подтверждения</label>
+  <input [(ngModel)]="otpData.otp_code" *ngIf="isTwoFactor && !isRegister" placeholder="otp code" type="number">
+  <button *ngIf="isTwoFactor && !isRegister" (click)="confirmOtp()">Подтвердить авторизацию</button>
+  <button *ngIf="isTwoFactor && isEnableToRefresh && !isRegister" (click)="refreshOtp()">Отправить код еще раз</button>
+</div>
+<div>
+  <label *ngIf="isRegister">Имя пользователя</label>
+  <input [(ngModel)]="userData.full_name" type="text" *ngIf="isRegister">
+  <label *ngIf="isRegister">Номер</label>
+  <input [(ngModel)]="userData.phone_number" type="number" *ngIf="isRegister">
+  <label *ngIf="isRegister">Адрес электронной почты</label>
+  <input [(ngModel)]="userData.email" type="email" *ngIf="isRegister">
+  <label *ngIf="isRegister">Пароль</label>
+  <input [(ngModel)]="userData.password" type="password" *ngIf="isRegister">
+  <label *ngIf="isRegister">Повторите пароль</label>
+  <input [(ngModel)]="this.repeatPassword" type="password" *ngIf="isRegister">
+  <label *ngIf="isRegister">Двухфакторная аутентификация</label>
+  <input [(ngModel)]="userData.two_factor_auth" type="checkbox" *ngIf="isRegister">
+  <button (click)="createUser()" *ngIf="isRegister">Зарегистрироваться</button>
+  <button (click)="login()" *ngIf="isRegister">Авторизация</button>
+</div>

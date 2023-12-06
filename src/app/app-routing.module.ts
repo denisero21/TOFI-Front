@@ -6,6 +6,7 @@ import {DepositComponent} from "./pages/deposit/deposit.component";
 import {AccountComponent} from "./pages/account/account.component";
 import {CreditComponent} from "./pages/credit/credit.component";
 import {CryptoComponent} from "./pages/crypto/crypto.component";
+import {TransferComponent} from "./pages/transfer/transfer.component";
 
 export const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -13,6 +14,7 @@ export const routes: Routes = [
   {path: 'auth', component: AuthComponent},
   {path: 'users/:user_id/deposit', component: DepositComponent},
   {path: 'users/:user_id/account', component: AccountComponent},
+  {path: 'users/:user_id/account/:account_id/transfer', component: TransferComponent},
   {path: 'users/:user_id/credit', component: CreditComponent},
 ];
 

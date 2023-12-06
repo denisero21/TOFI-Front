@@ -1,1 +1,25 @@
-<router-outlet></router-outlet>
+<body>
+  <header class="header">
+    <div id="header__logo">
+      <b (click)="ToHome()"><label style="color:#EB5F27"><span>T</span>ofi</label><label style="color:#009E84"><span>B</span>ank</label></b>
+    </div>
+    <nav id="header__navigation">
+      <td>
+        <tr (click)="ToHome()" id="first_column">Главная</tr>
+        <tr (click)="ToAccounts()">Счета</tr>
+        <tr (click)="ToDeposits()">Депозиты</tr>
+        <tr (click)="ToCredits()">Кредиты</tr>
+        <tr (click)="ToCrypto()">Курсы криптовалют</tr>
+      </td>
+    </nav>
+    <div id="header__login">
+      <td>
+        <tr *ngIf="!this.userAuth.user_id" (click)="ToAuth()">Войти</tr>
+        <tr *ngIf="this.userAuth.user_id" style="cursor:auto;">Приветствуем, {{this.userAuth.full_name}}</tr>
+        <tr *ngIf="this.userAuth.user_id" (click)="logOut()">Выйти</tr>
+      </td>
+    </div>
+  </header>
+  <div id="underline"></div>
+  <router-outlet></router-outlet>
+</body>

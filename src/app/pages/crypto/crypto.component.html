@@ -1,2 +1,10 @@
 <p>crypto works!</p>
 <button (click)="getRates()">Обновить курсы валют</button>
+
+<div *ngIf="cryptoRatesList">
+    <ul>
+        <li *ngFor="let crypto of cryptoRatesList">
+            {{ crypto.name }}
+        </li>
+    </ul>
+</div>

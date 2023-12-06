@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DepositService } from '../../service/deposit.service';
-import {Deposit} from "../../models/models";
+import {Deposit, DepositDto} from "../../models/models";
 
 
 @Component({
@@ -12,6 +12,15 @@ import {Deposit} from "../../models/models";
 export class DepositComponent implements OnInit {
   userId!: number;
   deposits: Deposit[] = [];
+
+  depositData: DepositDto = {
+    account_id: 1,
+    term: 'MONTH_3',
+    amount: 10,
+    deposit_type: 'REVOCABLE'
+  }
+
+  depositId = 4;
 
   constructor(private route: ActivatedRoute, private depositService: DepositService) { }
 
@@ -35,8 +44,8 @@ export class DepositComponent implements OnInit {
     );
   }
 
-  createDeposit(depositData: any): void {
-    this.depositService.createDeposit(this.userId, depositData).subscribe(
+  createDeposit(): void {
+    this.depositService.createDeposit(this.userId, this.depositData).subscribe(
       () => {
         console.log('Deposit created successfully');
         this.loadDeposits();
@@ -47,8 +56,9 @@ export class DepositComponent implements OnInit {
     );
   }
 
-  closeDeposit(depositId: number): void {
-    this.depositService.closeDeposit(depositId).subscribe(
+
+  closeDeposit(): void {
+    this.depositService.closeDeposit(this.depositId).subscribe(
       () => {
         console.log('Deposit closed successfully');
         this.loadDeposits();

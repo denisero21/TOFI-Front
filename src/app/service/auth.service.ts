@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import { catchError, Observable, throwError } from 'rxjs';
-import { JwtToken, Login, ConfirmOtpRequest } from "../models/models";
+import {JwtToken, Login, ConfirmOtpRequest, UserDto} from "../models/models";
 
 @Injectable({
   providedIn: 'root'
@@ -42,12 +42,21 @@ export class AuthService {
       );
   }
 
+  createUser(user: UserDto): Observable<any>{
+    return this.http.post<void>(`${this.apiUrl}/register`, user)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.error('API Error:', error);
     if(error.error?.error_description == "error.otp.not_exp_code"){
       alert('Ошибка отправки кода')
     }else {
-      alert(error.error?.error_description || 'Something went wrong; please try again later.');
+      alert(Array.isArray(error.error?.error_description)
+        ? error.error.error_description[0]
+        : 'Уппс! Проблемы с сервером...');
     }
     return throwError(`Something went wrong; please try again later. Error: ${error}`);
   }

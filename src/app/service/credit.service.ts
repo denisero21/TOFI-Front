@@ -25,7 +25,14 @@ export class CreditService {
   }
 
   payCredit(creditId: number, paymentRequest: MakePaymentRequest): Observable<any> {
-    return this.http.post(`api/api/users/:userId/credit/${creditId}/pay`, paymentRequest, { withCredentials: true })
+    return this.http.post(`api/api/users/:user_id/credit/${creditId}/pay`, paymentRequest, { withCredentials: true })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getCreditInfo(creditId: number){
+    return this.http.post(`api/api/users/:user_id/credit/${creditId}`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );
@@ -33,6 +40,9 @@ export class CreditService {
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.error('API Error:', error);
-    return throwError('Something went wrong; please try again later.');
+    alert(Array.isArray(error.error?.error_description)
+      ? error.error.error_description[0]
+      : 'Уппс! Проблемы с сервером...');
+    return throwError(`Something went wrong; please try again later. Error: ${error}`);
   }
 }

@@ -8,11 +8,9 @@ import {API_URL} from "../app.config";
   providedIn: 'root'
 })
 export class CryptoService {
-  private apiUrl = API_URL;
-
   constructor(private http: HttpClient) { }
 
-  getCryptoCurrencyRates(): Observable<any[]> {
+  getCryptoCurrencyRates(): Observable<CryptoRates[]> {
     return this.http.get<CryptoRates[]>(`api/api/crypto`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
@@ -21,7 +19,9 @@ export class CryptoService {
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.error('API Error:', error);
-    alert(error.error?.error_description || 'Something went wrong; please try again later.');
+    alert(Array.isArray(error.error?.error_description)
+      ? error.error.error_description[0]
+      : 'Уппс! Проблемы с сервером...');
     return throwError(`Something went wrong; please try again later. Error: ${error}`);
   }
 }

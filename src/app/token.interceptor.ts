@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     if (request.headers.has('Skip-Token')) {
       return next.handle(request);

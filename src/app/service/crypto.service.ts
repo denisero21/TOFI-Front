@@ -10,8 +10,8 @@ import {API_URL} from "../app.config";
 export class CryptoService {
   constructor(private http: HttpClient) { }
 
-  getCryptoCurrencyRates(): Observable<CryptoRates[]> {
-    return this.http.get<CryptoRates[]>(`api/api/crypto`, { withCredentials: true })
+  getCryptoCurrencyRates(): Observable<String> {
+    return this.http.get<String>(`api/api/crypto`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );

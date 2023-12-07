@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Account, CreateAccountDto, Credit, TransferRequest} from "../../models/models";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AccountService} from "../../service/account.service";
@@ -9,9 +9,11 @@ import {TransferComponent} from "../transfer/transfer.component";
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent {
+export class AccountComponent implements OnInit{
   userId!: number;
   accounts: Account[] = [];
+  isMakeTransfer: Boolean = false
+  isOpenAccount: Boolean = false
 
   accountData: CreateAccountDto = {
     name: '',
@@ -43,17 +45,23 @@ export class AccountComponent {
         console.log(this.accounts)
       },
       (error) => {
-        console.error('Error loading credits:', error);
+        console.error('Error loading accounts:', error);
       }
     )
   }
 
+  openAccount(){
+    this.isOpenAccount= !this.isOpenAccount
+    this.isMakeTransfer= false
+  }
+
   createAccount(){
-    this.accountService.changeAccount(this.userId, this.accountData).subscribe(
+    this.accountService.createAccount(this.userId, this.accountData).subscribe(
       () => {
         console.log('Account created successfully');
         this.loadAccounts();
         alert("Счет успешно открыт")
+        this.isOpenAccount = false
       },
       (error) => {
         console.error('Error creating account:', error);
@@ -61,23 +69,32 @@ export class AccountComponent {
     )
   }
 
-  // makeTransfer(account: Account){
-  //   this.router.navigate(['users', this.userId, 'account', account.id, 'transfer'])
-  //   this.transferComponent.setAccount(account)
-  // }
+  openMakeTransfer(){
+    this.isMakeTransfer = !this.isMakeTransfer
+    this.isOpenAccount= false
+  }
 
-  makeTransfer(account: Account){
-    this.transferData.sender_id = this.userId
-    this.transferData.currency = account.currency
-    this.accountService.makeTransfer(this.transferData).subscribe(
-      () => {
-        console.log('Transfer done successfully');
-        alert("Перевод произведен")
-      },
-      (error) => {
-        console.error('Error transferring:', error);
+  makeTransfer(accountId: number){
+    this.loadAccounts()
+    for(let i = 0; i < this.accounts.length; i++){
+      const acc = this.accounts[i]
+      if(acc.id == accountId){
+        if(!acc.is_blocked){
+          this.accountService.makeTransfer(this.transferData).subscribe(
+              () => {
+                console.log('Transfer done successfully');
+                alert("Перевод произведен")
+                this.isMakeTransfer = false
+              },
+              (error) => {
+                console.error('Error transferring:', error);
+              }
+          )
+        }else{
+          alert("Перевод невозможен, Ващ аккаунт заблокирован")
+        }
       }
-    )
+    }
   }
 
   addMoney(accountId: number){

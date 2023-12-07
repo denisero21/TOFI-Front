@@ -55,9 +55,9 @@ export class AuthComponent {
     this.authService.authenticate(this.loginData)
       .subscribe(
         (jwtToken) => {
-          localStorage.setItem('token', jwtToken.token.toString())
+            sessionStorage.setItem('token', jwtToken.token.toString())
           if (jwtToken.otpExpiration != null){
-            localStorage.setItem('otp_exp', jwtToken.otpExpiration.toString())
+              sessionStorage.setItem('otp_exp', jwtToken.otpExpiration.toString())
           }
           console.log('Authentication successful:', jwtToken);
           const decodedToken: any = jwtDecode(jwtToken.token.toString());
@@ -75,7 +75,7 @@ export class AuthComponent {
             alert('Успешная авторизация')
             this.loginData.login = ''
             this.loginData.password = ''
-            this.router.navigateByUrl('')
+            this.router.navigate([''])
           }
         },
         (error) => {
@@ -93,12 +93,12 @@ export class AuthComponent {
       .subscribe(
         (jwtToken) => {
           console.log('OTP confirmation successful:', jwtToken);
-          localStorage.setItem('token', jwtToken.token.toString())
+            sessionStorage.setItem('token', jwtToken.token.toString())
           alert('Успешная авторизация')
           this.isTwoFactor=false
           this.isEnableToRefresh=false
           this.otpData.otp_code=0;
-          this.router.navigateByUrl('')
+          this.router.navigate([''])
         },
         (error) => {
           console.error('OTP confirmation failed:', error);

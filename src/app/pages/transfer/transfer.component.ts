@@ -35,15 +35,15 @@ export class TransferComponent {
   }
 
   makeTransfer(){
-    this.accountService.makeTransfer(this.transferData).subscribe(
-      () => {
-        console.log('Transfer done successfully');
-        alert("Перевод произведен")
-        this.router.navigate(['users', this.userId, 'account'])
-      },
-      (error) => {
-        console.error('Error transferring:', error);
-      }
-    )
+    // this.accountService.(this.transferData).subscribe(
+    //   () => {
+    //     console.log('Transfer done successfully');
+    //     alert("Перевод произведен")
+    //     this.router.navigate(['users', this.userId, 'account'])
+    //   },
+    //   (error) => {
+    //     console.error('Error transferring:', error);
+    //   }
+    // )
   }
 }

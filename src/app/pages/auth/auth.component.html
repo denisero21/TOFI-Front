@@ -1,4 +1,5 @@
 <div class="auth">
+  <label *ngIf="!isRegister" id="log">Авторизация</label>
   <label *ngIf="!isRegister">Логин</label>
   <input [(ngModel)]="loginData.login" *ngIf="!isRegister" placeholder="login" type="email" name="login">
   <label *ngIf="!isRegister">Пароль</label>
@@ -14,6 +15,7 @@
   <button *ngIf="isTwoFactor && isEnableToRefresh && !isRegister" (click)="refreshOtp()">Отправить код еще раз</button>
 </div>
 <div>
+  <label *ngIf="isRegister" id="reg">Регистрация</label>
   <label *ngIf="isRegister">Имя пользователя</label>
   <input [(ngModel)]="userData.full_name" type="text" *ngIf="isRegister">
   <label *ngIf="isRegister">Номер</label>

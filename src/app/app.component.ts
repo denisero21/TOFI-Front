@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthComponent} from "./pages/auth/auth.component";
 import {jwtDecode} from "jwt-decode";
@@ -8,8 +8,9 @@ import {jwtDecode} from "jwt-decode";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'tofi';
+
   userAuth: any = {
     user_id: null,
     password: '',
@@ -25,7 +26,7 @@ export class AppComponent {
   }
 
   ngOnInit(): void{
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     if(token){
       const decodedToken: any = jwtDecode(token);
       this.userAuth.full_name = decodedToken.full_name
@@ -39,7 +40,7 @@ export class AppComponent {
   }
 
   ToHome(){
-    this.router.navigateByUrl('')
+    this.router.navigate([''])
   }
 
   ToAccounts(){
@@ -59,23 +60,23 @@ export class AppComponent {
   ToCredits(){
     this.checkUser()
     if (this.isRoutingAvailable){
-      this.router.navigateByUrl(`users/${this.userAuth.user_id}/credit`)
+      this.router.navigate(['users', this.userAuth.user_id, 'credit'])
     }
   }
 
   ToAuth(){
-    this.router.navigateByUrl('auth')
+    this.router.navigate(['auth'])
   }
 
   ToCrypto(){
-    this.router.navigateByUrl('crypto')
+    this.router.navigate(['crypto'])
   }
 
   checkUser(){
     if (this.userAuth.user_id === null){
       alert("Для начала требуется авторизация")
       this.isRoutingAvailable = false
-      this.router.navigateByUrl('auth')
+      this.router.navigate(['auth'])
     }
     else{
       this.isRoutingAvailable = true
@@ -83,7 +84,7 @@ export class AppComponent {
   }
 
   logOut(){
-    localStorage.removeItem('token')
+    sessionStorage.removeItem('token')
     this.userAuth.user_id = null
   }
 

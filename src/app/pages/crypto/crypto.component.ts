@@ -10,7 +10,7 @@ import {CryptoRates, Deposit, Rate} from "../../models/models";
 })
 export class CryptoComponent {
     cryptoRatesList: CryptoRates[] = []
-    rates: Rate[] = []
+    rates: String = ""
 
     constructor(private route: ActivatedRoute, private cryptoService: CryptoService) {
     }
@@ -23,9 +23,9 @@ export class CryptoComponent {
 
   getRates(): void {
     this.cryptoService.getCryptoCurrencyRates().subscribe(
-      (data: CryptoRates[]) => {
-        this.cryptoRatesList = data;
-        console.log(this.cryptoRatesList)
+      (data: String) => {
+        this.rates = data;
+        console.log(this.rates)
       },
       (error) => {
         console.error('Error loading rates:', error);

@@ -1,0 +1,35 @@
+#openBut, #createBut{
+  margin-bottom: 20px;
+  border-radius: 10px;
+  width: 250px;
+  height: 35px;
+  color: aliceblue;
+  background: #EB5F27;
+  border-color: #EB5F27;
+}
+
+#openBut:hover, #createBut:hover{
+  background: #EB2221;
+}
+
+.deposit label{
+  display: flex;
+  flex: 1;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  height: 35px;
+}
+
+.deposit button{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  border-radius: 7px;
+  width: 125px;
+  height: 25px;
+}
+
+.deposit button:hover{
+  background: #ececec;
+  border-color: #ececec;
+}

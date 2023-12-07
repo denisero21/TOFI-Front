@@ -10,11 +10,11 @@ export type Deposit = {
   date: Date,
   term: String,
   amount: number,
-  compensation_amount: number,
+  compensationAmount: number,
   status: String,
-  deposit_type: String,
-  user_id: number,
-  account_id: number
+  type: String,
+  userId: number,
+  accountId: number
 }
 
 export type CreditDto = {

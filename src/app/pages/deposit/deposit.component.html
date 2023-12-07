@@ -1,8 +1,39 @@
-<button (click)="loadDeposits()">Загрузить депозиты</button>
-<button (click)="createDeposit()">Открыть депозит</button>
-
-
-<div class="deposits" *ngFor="let deposit of deposits">
-  <p>No: {{deposit.id}} | Сумма: {{deposit.amount}} | Дата открытия: {{deposit.date}} | Срок: {{deposit.term}} | Статус: {{deposit.status}}</p>
-  <button (click)="closeDeposit(deposit.id)" *ngIf="deposit.status!=='CLOSED'">Закрыть депозит</button>
+<div *ngIf="!isCreateDeposit" class="deposits">
+  <div class="deposit" *ngFor="let dep of deposits">
+    <label>
+      <span>No: {{dep.id}} | </span>
+      <span> Сумма: {{dep.amount}} | </span>
+      <span> Дата открытия: {{dep.date}} | </span>
+      <span> Срок: {{dep.term}} | </span>
+      <span> Тип: {{dep.type}} | </span>
+      <span> Статус: {{dep.status}} </span>
+      <span *ngIf="dep.status === 'CLOSED'"> | Сумма начисления: {{dep.compensationAmount}} </span>
+      <button (click)="closeDeposit(dep.id)" *ngIf="dep.status!=='CLOSED'">Закрыть депозит</button>
+    </label>
+  </div>
+  <button (click)="openCreateDeposit()" id="openBut">Открыть депозит</button>
 </div>
+
+<div class="create" *ngIf="isCreateDeposit">
+  <p>
+    <select [(ngModel)]="depositData.account_id">
+      <option *ngFor="let account of accounts" [value]="account.id">{{account.id}}</option>
+    </select>
+  </p>
+  <p>
+    <select [(ngModel)]="depositData.term">
+      <option selected>MONTH_3</option>
+      <option>MONTH_6</option>
+      <option>MONTH_12</option>
+    </select>
+  </p>
+  <p><input [(ngModel)]="depositData.amount" type="number" placeholder="Сумма депозита"></p>
+  <p>
+    <select [(ngModel)]="depositData.deposit_type">
+      <option selected>REVOCABLE</option>
+      <option>IRREVOCABLE</option>
+    </select>
+  </p>
+  <button (click)="createDeposit(userId)" id="createBut">Открыть депозит</button>
+</div>
+

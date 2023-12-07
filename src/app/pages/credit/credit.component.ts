@@ -1,17 +1,22 @@
-import { Component } from '@angular/core';
-import {CreateCreditDto, Credit, Deposit, MakePaymentRequest} from "../../models/models";
+import {Component, OnInit} from '@angular/core';
+import {Account, CreateCreditDto, Credit, Deposit, MakePaymentRequest} from "../../models/models";
 import {ActivatedRoute} from "@angular/router";
 import {CreditService} from "../../service/credit.service";
 import {Observable} from "rxjs";
+import {AccountService} from "../../service/account.service";
 
 @Component({
   selector: 'app-credit',
   templateUrl: './credit.component.html',
   styleUrls: ['./credit.component.scss']
 })
-export class CreditComponent {
+export class CreditComponent implements OnInit{
   userId!: number;
   credits: Credit[] = [];
+  accounts: Account[] = []
+
+  isPayCredit: Boolean = false
+  isCreateCredit: Boolean = false
 
   creditData: CreateCreditDto = {
     account_id: null,
@@ -21,19 +26,22 @@ export class CreditComponent {
     is_notification_enabled: false
   }
 
+  creditId?: number;
   payData: MakePaymentRequest = {
     sum_to_pay: null
   }
 
   credit?: Credit;
 
-  constructor(private route: ActivatedRoute, private creditService: CreditService) {
-  }
+  constructor(private route: ActivatedRoute,
+              private creditService: CreditService,
+              private accountService: AccountService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.userId = +this.route.snapshot.paramMap.get('user_id')!;
       this.loadCredits();
+      this.loadAccounts()
       console.log(this.credits)
     });
   }
@@ -48,6 +56,27 @@ export class CreditComponent {
         console.error('Error loading credits:', error);
       }
     );
+  }
+
+  loadAccounts(){
+    this.accountService.getUsersAccounts(this.userId).subscribe(
+        (data: Account[]) => {
+          this.accounts = data;
+          console.log(this.accounts)
+        },
+        (error) => {
+          console.error('Error loading accounts:', error);
+        }
+    )
+  }
+
+  openPay(){
+    this.isPayCredit = !this.isPayCredit
+    this.isCreateCredit = false
+  }
+  openCreate(){
+    this.isPayCredit = false
+    this.isCreateCredit = !this.isCreateCredit
   }
 
   createCredit(): void{

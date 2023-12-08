@@ -1,4 +1,7 @@
 <div class="deposits" *ngIf="!isMakeTransfer && !isOpenAccount">
+  <div id="header">
+      Счета
+  </div>
   <div class="deposit" *ngFor="let dep of accounts">
     <label>
       <span>No: {{dep.id}} | </span>
@@ -7,12 +10,14 @@
       <span>Валюта: {{dep.currency}} | </span>
       <span>Сумма на счету: {{dep.balance}} | </span>
       <span>Доступен: {{!dep.is_blocked}} </span>
+    </label>
+    <div class="button-container">
       <button (click)="addMoney(dep.id)">Пополнить счет</button>
       <button (click)="deleteMoney(dep.id)" id="cashout">Обналичить</button>
-    </label>
-    <div id="underline"></div>
+    </div>
   </div>
 </div>
+
 
 <div class="nav">
   <div class="button-container">

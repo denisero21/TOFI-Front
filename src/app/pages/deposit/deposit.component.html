@@ -1,23 +1,32 @@
 <div *ngIf="!isCreateDeposit" class="deposits">
+  <div id="header">
+    <p>
+      Депозиты
+    </p>
+  </div>
   <div class="deposit" *ngFor="let dep of deposits">
-    <label>
-      <span>No: {{dep.id}} | </span>
-      <span> Сумма: {{dep.amount}} | </span>
-      <span> Дата открытия: {{dep.date}} | </span>
-      <span> Срок: {{dep.term}} | </span>
-      <span> Тип: {{dep.type}} | </span>
-      <span> Статус: {{dep.status}} </span>
-      <span *ngIf="dep.status === 'CLOSED'"> | Сумма начисления: {{dep.compensationAmount}} </span>
+    <div class="deposit-info">
+      <label>
+        <span>No: {{dep.id}} | </span>
+        <span> Дата открытия: {{dep.date}} | </span>
+        <span> Срок: {{dep.term}} | </span>
+        <span> Тип: {{dep.type}} | </span>
+        <span> Статус: {{dep.status}} | </span>
+        <span> Сумма: {{dep.amount}} </span>
+        <span *ngIf="dep.status === 'CLOSED'"> | Сумма начисления: {{dep.compensationAmount}} </span>
+      </label>
+    </div>
+    <div class="button-container">
       <button (click)="closeDeposit(dep.id)" *ngIf="dep.status!=='CLOSED'">Закрыть депозит</button>
-    </label>
-    <div id="underline"></div>
+    </div>
   </div>
 </div>
 
-<p>
+
+<div class="nav">
   <button (click)="openCreateDeposit()" id="openBut" *ngIf="!isCreateDeposit">Открыть депозит</button>
   <button (click)="openCreateDeposit()" id="openBut1" *ngIf="isCreateDeposit">Вернуться к списку депозитов</button>
-</p>
+</div>
 
 <div class="create" *ngIf="isCreateDeposit">
   <p>Номер счета</p>

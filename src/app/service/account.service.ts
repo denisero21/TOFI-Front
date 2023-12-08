@@ -8,7 +8,7 @@ import {CreateAccountDto, TransferRequest, ChangeAccountDto, Account} from '../m
   providedIn: 'root'
 })
 export class AccountService {
-  private apiUrl = 'api/api/users';
+  private apiUrl = 'api/users';
 
   constructor(private http: HttpClient) { }
 
@@ -27,14 +27,14 @@ export class AccountService {
   }
 
   addMoney(accountId: number): Observable<void> {
-    return this.http.get<void>(`${this.apiUrl}/accounts/${accountId}/add_money`, { withCredentials: true })
+    return this.http.get<void>(`${this.apiUrl}/:user_id/accounts/${accountId}/add_money`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   deleteMoney(accountId: number): Observable<void> {
-    return this.http.get<void>(`${this.apiUrl}/accounts/${accountId}/no_money`, { withCredentials: true })
+    return this.http.get<void>(`${this.apiUrl}/:user_id/accounts/${accountId}/no_money`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );

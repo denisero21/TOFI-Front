@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
 import {CryptoRates, Deposit} from "../models/models";
 import {API_URL} from "../app.config";
+import {Crypto_} from "../pages/crypto/crypto";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ import {API_URL} from "../app.config";
 export class CryptoService {
   constructor(private http: HttpClient) { }
 
-  getCryptoCurrencyRates(): Observable<String> {
-    return this.http.get<String>(`api/api/crypto`, { withCredentials: true })
+  getCryptoCurrencyRates(): Observable<Crypto_> {
+    return this.http.get<Crypto_>(`api/crypto`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );

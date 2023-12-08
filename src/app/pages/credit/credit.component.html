@@ -1,4 +1,7 @@
-<div *ngIf="!isPayCredit && !isCreateCredit">
+<div *ngIf="!isPayCredit && !isCreateCredit" class="deposits">
+  <div id="header">
+      Кредиты
+  </div>
   <div class="deposit" *ngFor="let dep of credits">
     <label>
       <span>No: {{dep.id}} | </span>
@@ -10,9 +13,9 @@
       <p>
         <span>Ежемесячная сумма оплаты: {{dep.per_month_pay_sum}} | </span>
         <span>Пеня: {{dep.penya}} | </span>
+        <span>Статус: {{dep.status}} | </span>
       </p>
     </label>
-    <div id="underline"></div>
   </div>
 </div>
 
@@ -31,9 +34,9 @@
   <select [(ngModel)]="creditId">
     <option *ngFor="let credit of credits" [value]="credit.id">{{credit.id}}</option>
   </select>
-  <p>Сумма оплаты</p>
-  <input [(ngModel)]="payData.sum_to_pay" type="number">
+  <label *ngIf="isCalcSumToPay">Сумма оплаты: {{payData.sum_to_pay}}</label>
   <div *ngIf="creditId != null">
+    <button (click)="calcSumToPay(creditId)" *ngIf="creditId !== null" id="pay1">Рассчитать сумму оплаты</button>
     <button (click)="payCredit(creditId)" *ngIf="creditId !== null" id="pay">Оплатить кредит</button>
   </div>
 </div>

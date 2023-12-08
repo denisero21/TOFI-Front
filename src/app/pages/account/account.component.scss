@@ -1,33 +1,49 @@
-.deposit span{
-  margin-bottom: 15px;
+#header{
+  font-weight: bold;
+  font-size: 30px;
+  padding-bottom: 30px;
+  text-align: left ;
+  border-bottom: 1px solid black;
+}
+
+.deposit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Добавлено свойство */
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+  padding-top: 10px;
+}
+.deposit span {
   border-radius: 10px;
   height: 25px;
 }
 
-.deposit button{
+.deposit button-container {
+  display: flex;
+}
+
+.deposit button {
+  margin-top: 3px;
   border: none;
-  margin-left: 15px;
   border-radius: 7px;
   width: 125px;
   height: 25px;
+  margin-left: 15px;
 }
 
-.deposit button:hover{
+.deposit button:hover {
   background: #C2C2C2FF;
   border-color: #C2C2C2FF;
   color: black;
   transition: .3s ease;
 }
 
-#underline{
-  border: 1px solid black;
-  margin-top: 10px;
-  margin-bottom: 15px;
-}
-
-.deposit #cashout{
+.deposit #cashout {
   margin-left: 25px;
 }
+
 
 #openBut, #openBut1, #make, #make1, #transfer, #create{
   border-radius: 10px;
@@ -49,6 +65,7 @@
 
 .nav {
   text-align: center;
+  margin-top: 20px;
 }
 
 .button-container {

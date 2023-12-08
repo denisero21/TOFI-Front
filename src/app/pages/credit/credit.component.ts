@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Account, CreateCreditDto, Credit, Deposit, MakePaymentRequest} from "../../models/models";
+import {Account, CreateCreditDto, Credit, CreditInfo, Deposit, MakePaymentRequest} from "../../models/models";
 import {ActivatedRoute} from "@angular/router";
 import {CreditService} from "../../service/credit.service";
 import {Observable} from "rxjs";
@@ -27,11 +27,12 @@ export class CreditComponent implements OnInit{
   }
 
   creditId?: number;
+  isCalcSumToPay: Boolean = false
   payData: MakePaymentRequest = {
     sum_to_pay: null
   }
 
-  credit?: Credit;
+  credit?: CreditInfo;
 
   constructor(private route: ActivatedRoute,
               private creditService: CreditService,
@@ -102,41 +103,47 @@ export class CreditComponent implements OnInit{
   }
 
   payCredit(creditId: number): void{
-    if(this.payData.sum_to_pay == null){
-      alert("Введите сумму платежа")
-    }else{
-      const date = new Date()
-      this.getCreditInfo(creditId)
-      if (date < this.credit!.next_pay_date){
-        alert("Рановато для оплаты кредита")
-      }else{
-        this.creditService.payCredit(creditId, this.payData).subscribe(
-          () => {
-            console.log('Credit paid successfully');
-            this.loadCredits();
-            alert("Кредит успешно оплачен")
-            this.payData.sum_to_pay = null
-          },
-          (error) => {
-            console.error('Error paying credit:', error);
-          }
-        )
+    const date = new Date()
+      console.log("right now: ",date)
+    for(let i = 0; i < this.credits.length; i++){
+      const credit = this.credits[i]
+        console.log("next: ",credit.next_pay_date)
+      if(credit.id == creditId){
+        if (date < credit!.next_pay_date){
+          alert("Рановато для оплаты кредита")
+        }else if(credit.status == 'PAID'){
+            alert("Кредит уже выплачен")
+        }else if(this.isCalcSumToPay){
+            this.creditService.payCredit(creditId, this.payData).subscribe(
+                () => {
+                    console.log('Credit paid successfully');
+                    this.loadCredits();
+                    alert("Кредит успешно оплачен")
+                    this.payData.sum_to_pay = null
+                    this.isCalcSumToPay = false
+                },
+                (error) => {
+                    console.error('Error paying credit:', error);
+                }
+            )
+        }else{
+            alert("Для начала рассчитайте сумму оплаты кредита")
+        }
       }
     }
+  }
 
+  calcSumToPay(creditId: number){
+      this.getCreditInfo(creditId)
+      this.isCalcSumToPay = true
   }
 
   getCreditInfo(creditId: number){
     this.creditService.getCreditInfo(creditId).subscribe(
-      () => {
-        this.loadCredits();
-        for (let i = 0; i < this.credits.length; i++){
-          const credit = this.credits[i]
-          if(credit.id === creditId){
-            console.log('Credit: ', credit);
-            this.credit = credit
-          }
-        }
+      (data: CreditInfo) => {
+        console.log("creditInfo: ", data)
+        this.credit = data
+        this.payData.sum_to_pay = data.sum_to_pay
       },
       (error) => {
         console.error('Error paying credit:', error);

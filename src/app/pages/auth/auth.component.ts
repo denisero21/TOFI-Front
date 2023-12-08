@@ -38,7 +38,7 @@ export class AuthComponent {
     email: '',
     phone_number: '',
     is_enabled: true,
-    two_factor_auth: true
+    two_factor_auth: false
   }
 
   otpData: ConfirmOtpRequest = {

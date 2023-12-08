@@ -11,21 +11,21 @@ export class DepositService {
   constructor(private http: HttpClient) { }
 
   createDeposit(userId: number, depositData: DepositDto): Observable<any> {
-    return this.http.post(`api/api/users/${userId}/deposit`, depositData, { withCredentials: true })
+    return this.http.post(`api/users/${userId}/deposit`, depositData, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   closeDeposit(depositId: number): Observable<any> {
-    return this.http.post(`api/api/users/:user_id/deposit/${depositId}/close`, {}, { withCredentials: true })
+    return this.http.post(`api/users/:user_id/deposit/${depositId}/close`, {}, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   getUsersDeposits(userId: number): Observable<Deposit[]> {
-    return this.http.get<any[]>(`api/api/users/${userId}/deposit`, { withCredentials: true })
+    return this.http.get<any[]>(`api/users/${userId}/deposit`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );

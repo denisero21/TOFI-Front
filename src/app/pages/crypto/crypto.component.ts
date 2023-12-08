@@ -1,18 +1,24 @@
-import {Component, Pipe, PipeTransform} from '@angular/core';
+import {Component, OnDestroy, OnInit, Pipe, PipeTransform} from '@angular/core';
 import {CryptoService} from "../../service/crypto.service";
 import {ActivatedRoute} from "@angular/router";
-import {CryptoRates, Deposit, Rate} from "../../models/models";
 import {Crypto_} from "./crypto";
+import {interval, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-crypto',
   templateUrl: './crypto.component.html',
   styleUrls: ['./crypto.component.scss']
 })
-export class CryptoComponent {
+export class CryptoComponent implements OnInit, OnDestroy{
     rates!: Crypto_;
+    private timerSubscription: Subscription;
 
-    constructor(private route: ActivatedRoute, private cryptoService: CryptoService) {
+    constructor(private route: ActivatedRoute,
+                private cryptoService: CryptoService) {
+        const timerInterval = 30 * 1000; // 30 секунд
+        this.timerSubscription = interval(timerInterval).subscribe(() => {
+            this.getRates()
+        });
     }
 
     ngOnInit(): void {
@@ -30,6 +36,12 @@ export class CryptoComponent {
       (error) => {
         console.error('Error loading rates:', error);
       });
+  }
+
+  ngOnDestroy() {
+      if (this.timerSubscription) {
+          this.timerSubscription.unsubscribe();
+      }
   }
 
 }

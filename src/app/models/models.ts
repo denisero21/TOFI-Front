@@ -115,6 +115,14 @@ export type Account = {
   balance: number,
   currency: string,
   is_blocked: boolean
+}
 
+export type CreditInfo = {
+  credit_name: string | null,
+  credit_id: number,
+  sum_per_month: number,
+  penya: number,
+  debt_after_payment: number,
+  sum_to_pay: number
 }
 

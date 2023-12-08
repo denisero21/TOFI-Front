@@ -1,62 +1,94 @@
 <button (click)="getRates()">Обновить курсы валют</button>
 
-<div *ngIf="rates !== undefined">
-  <label>BTC</label>
-  <p><label>USD: {{rates.BTC.USD}}</label></p>
-  <p><label>EUR: {{rates.BTC.EUR}}</label></p>
-  <p><label>BYN: {{rates.BTC.BYN}}</label></p>
-  <p><label>RUB: {{rates.BTC.RUB}}</label></p>
-  <p><label>TRY: {{rates.BTC.TRY}}</label></p>
-  <p><label>JPY: {{rates.BTC.JPY}}</label></p>
-  <label>ETH</label>
-  <p><label>USD: {{rates.ETH.USD}}</label></p>
-  <p><label>EUR: {{rates.ETH.EUR}}</label></p>
-  <p><label>BYN: {{rates.ETH.BYN}}</label></p>
-  <p><label>RUB: {{rates.ETH.RUB}}</label></p>
-  <p><label>TRY: {{rates.ETH.TRY}}</label></p>
-  <label>DASH</label>
-  <p><label>USD: {{rates.DASH.USD}}</label></p>
-  <p><label>EUR: {{rates.DASH.EUR}}</label></p>
-  <p><label>BYN: {{rates.DASH.BYN}}</label></p>
-  <p><label>RUB: {{rates.DASH.RUB}}</label></p>
-  <p><label>TRY: {{rates.DASH.TRY}}</label></p>
-  <p><label>JPY: {{rates.DASH.JPY}}</label></p>
-  <p><label>JPY: {{rates.DASH.JPY}}</label></p>
-  <label>REP</label>
-  <p><label>USD: {{rates.REP.USD}}</label></p>
-  <p><label>EUR: {{rates.REP.EUR}}</label></p>
-  <p><label>BYN: {{rates.REP.BYN}}</label></p>
-  <p><label>RUB: {{rates.REP.RUB}}</label></p>
-  <p><label>TRY: {{rates.REP.TRY}}</label></p>
-  <p><label>JPY: {{rates.REP.JPY}}</label></p>
-  <label>TRX</label>
-  <p><label>USD: {{rates.TRX.USD}}</label></p>
-  <p><label>EUR: {{rates.TRX.EUR}}</label></p>
-  <p><label>BYN: {{rates.TRX.BYN}}</label></p>
-  <p><label>RUB: {{rates.TRX.RUB}}</label></p>
-  <p><label>TRY: {{rates.TRX.TRY}}</label></p>
-  <p><label>JPY: {{rates.TRX.JPY}}</label></p>
-  <label>USDT</label>
-  <p><label>USD: {{rates.USDT.USD}}</label></p>
-  <p><label>EUR: {{rates.USDT.EUR}}</label></p>
-  <p><label>BYN: {{rates.USDT.BYN}}</label></p>
-  <p><label>RUB: {{rates.USDT.RUB}}</label></p>
-  <p><label>TRY: {{rates.USDT.TRY}}</label></p>
-  <p><label>JPY: {{rates.USDT.JPY}}</label></p>
-  <label>XMR</label>
-  <p><label>USD: {{rates.XMR.USD}}</label></p>
-  <p><label>EUR: {{rates.XMR.EUR}}</label></p>
-  <p><label>BYN: {{rates.XMR.BYN}}</label></p>
-  <p><label>RUB: {{rates.XMR.RUB}}</label></p>
-  <p><label>TRY: {{rates.XMR.TRY}}</label></p>
-  <p><label>JPY: {{rates.XMR.JPY}}</label></p>
-  <label>ZEC</label>
-  <p><label>USD: {{rates.ZEC.USD}}</label></p>
-  <p><label>EUR: {{rates.ZEC.EUR}}</label></p>
-  <p><label>BYN: {{rates.ZEC.BYN}}</label></p>
-  <p><label>RUB: {{rates.ZEC.RUB}}</label></p>
-  <p><label>TRY: {{rates.ZEC.TRY}}</label></p>
-  <p><label>JPY: {{rates.ZEC.JPY}}</label></p>
+<div *ngIf="rates !== undefined" class="cryptos">
+    <div class="crypto">
+        <div class="crypto_w">
+            <label><b>BTC</b></label>
+            <p><label>USD: {{rates.BTC.USD}}</label></p>
+            <p><label>EUR: {{rates.BTC.EUR}}</label></p>
+            <p><label>BYN: {{rates.BTC.BYN}}</label></p>
+            <p><label>RUB: {{rates.BTC.RUB}}</label></p>
+            <p><label>TRY: {{rates.BTC.TRY}}</label></p>
+            <p><label>JPY: {{rates.BTC.JPY}}</label></p>
+        </div>
+    </div>
+    <div class="crypto">
+        <div class="crypto_w">
+            <label><b>ETH</b></label>
+            <p><label>USD: {{rates.ETH.USD}}</label></p>
+            <p><label>EUR: {{rates.ETH.EUR}}</label></p>
+            <p><label>BYN: {{rates.ETH.BYN}}</label></p>
+            <p><label>RUB: {{rates.ETH.RUB}}</label></p>
+            <p><label>TRY: {{rates.ETH.TRY}}</label></p>
+            <p><label>JPY: {{rates.ETH.JPY}}</label></p>
+        </div>
+    </div>
+    <div class="crypto">
+        <div class="crypto_w">
+            <label><b>DASH</b></label>
+            <p><label>USD: {{rates.DASH.USD}}</label></p>
+            <p><label>EUR: {{rates.DASH.EUR}}</label></p>
+            <p><label>BYN: {{rates.DASH.BYN}}</label></p>
+            <p><label>RUB: {{rates.DASH.RUB}}</label></p>
+            <p><label>TRY: {{rates.DASH.TRY}}</label></p>
+            <p><label>JPY: {{rates.DASH.JPY}}</label></p>
+        </div>
+    </div>
+    <div class="crypto">
+        <div class="crypto_w">
+            <label><b>REP</b></label>
+            <p><label>USD: {{rates.REP.USD}}</label></p>
+            <p><label>EUR: {{rates.REP.EUR}}</label></p>
+            <p><label>BYN: {{rates.REP.BYN}}</label></p>
+            <p><label>RUB: {{rates.REP.RUB}}</label></p>
+            <p><label>TRY: {{rates.REP.TRY}}</label></p>
+            <p><label>JPY: {{rates.REP.JPY}}</label></p>
+        </div>
+    </div>
+    <div class="crypto">
+        <div class="crypto_w">
+            <label><b>TRX</b></label>
+            <p><label>USD: {{rates.TRX.USD}}</label></p>
+            <p><label>EUR: {{rates.TRX.EUR}}</label></p>
+            <p><label>BYN: {{rates.TRX.BYN}}</label></p>
+            <p><label>RUB: {{rates.TRX.RUB}}</label></p>
+            <p><label>TRY: {{rates.TRX.TRY}}</label></p>
+            <p><label>JPY: {{rates.TRX.JPY}}</label></p>
+        </div>
+    </div>
+    <div class="crypto">
+        <div class="crypto_w">
+            <label><b>USDT</b></label>
+            <p><label>USD: {{rates.USDT.USD}}</label></p>
+            <p><label>EUR: {{rates.USDT.EUR}}</label></p>
+            <p><label>BYN: {{rates.USDT.BYN}}</label></p>
+            <p><label>RUB: {{rates.USDT.RUB}}</label></p>
+            <p><label>TRY: {{rates.USDT.TRY}}</label></p>
+            <p><label>JPY: {{rates.USDT.JPY}}</label></p>
+        </div>
+    </div>
+    <div class="crypto">
+        <div class="crypto_w">
+            <label><b>XMR</b></label>
+            <p><label>USD: {{rates.XMR.USD}}</label></p>
+            <p><label>EUR: {{rates.XMR.EUR}}</label></p>
+            <p><label>BYN: {{rates.XMR.BYN}}</label></p>
+            <p><label>RUB: {{rates.XMR.RUB}}</label></p>
+            <p><label>TRY: {{rates.XMR.TRY}}</label></p>
+            <p><label>JPY: {{rates.XMR.JPY}}</label></p>
+        </div>
+    </div>
+    <div class="crypto">
+        <div class="crypto_w">
+            <label><b>ZEC</b></label>
+            <p><label>USD: {{rates.ZEC.USD}}</label></p>
+            <p><label>EUR: {{rates.ZEC.EUR}}</label></p>
+            <p><label>BYN: {{rates.ZEC.BYN}}</label></p>
+            <p><label>RUB: {{rates.ZEC.RUB}}</label></p>
+            <p><label>TRY: {{rates.ZEC.TRY}}</label></p>
+            <p><label>JPY: {{rates.ZEC.JPY}}</label></p>
+        </div>
+    </div>
 </div>
 
 

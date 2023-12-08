@@ -18,33 +18,58 @@
   transition: .3s ease;
 }
 
-#underline{
-  border: 1px solid black;
-  margin-top: 10px;
-  margin-bottom: 15px;
+.deposits p{
+  font-weight: bold;
+  font-size: 30px;
+  padding-bottom: 30px;
+  text-align: left !important;
+  border-bottom: 1px solid black;
 }
 
-.deposit label{
+.deposit {
   display: flex;
-  flex: 1;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  height: 35px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  padding-top: 15px;
 }
 
-.deposit button{
-  border: none;
-  margin-left: 10px;
-  border-radius: 7px;
-  width: 125px;
+.deposit-info {
+  display: flex;
+  height: 20px;
+}
+
+.deposit span {
+  margin-bottom: 15px;
+  border-radius: 10px;
   height: 25px;
 }
 
-.deposit button:hover{
+.button-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.deposit button {
+  margin-top: 3px;
+  border: none;
+  border-radius: 7px;
+  width: 125px;
+  height: 25px;
+  margin-left: 15px;
+}
+
+.deposit button:hover {
   background: #C2C2C2FF;
   border-color: #C2C2C2FF;
   color: black;
   transition: .3s ease;
+}
+
+.nav{
+  margin-top: 20px;
 }
 
 .create{

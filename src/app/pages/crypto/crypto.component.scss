@@ -14,3 +14,36 @@ button:hover{
   background: #EB2221;
   transition: .3s ease;
 }
+
+.cryptos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.crypto {
+  flex-basis: calc(33.33% - 20px);
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+
+}
+
+.crypto_w{
+  padding-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding-bottom: 20px;
+}
+
+.crypto label {
+
+  margin-bottom: 5px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.crypto p {
+  margin: 0;
+}

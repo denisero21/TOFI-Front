@@ -3,13 +3,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {CreateAccountDto, TransferRequest, ChangeAccountDto, Account} from '../models/models';
+import {API_URL} from "../app.config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  private apiUrl = 'api/users';
-
+  private apiUrl = API_URL + '/users';
+  // private apiUrl = 'users';
   constructor(private http: HttpClient) { }
 
   createAccount(userId: number, accountDto: CreateAccountDto): Observable<void> {

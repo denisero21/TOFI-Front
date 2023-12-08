@@ -11,8 +11,11 @@ import {Crypto_} from "../pages/crypto/crypto";
 export class CryptoService {
   constructor(private http: HttpClient) { }
 
+  // private apiUrl = API_URL
+  private apiUrl = ""
+
   getCryptoCurrencyRates(): Observable<Crypto_> {
-    return this.http.get<Crypto_>(`api/crypto`, { withCredentials: true })
+    return this.http.get<Crypto_>(`${this.apiUrl}/crypto`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );

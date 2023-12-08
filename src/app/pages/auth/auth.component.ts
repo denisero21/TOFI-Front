@@ -151,6 +151,12 @@ export class AuthComponent {
       || this.userData.password == ''
       || this.userData.phone_number == '') {
       alert("Не все данные заполнены")
+    }else if(!this.userData.email.includes("@")){
+      alert("Некорректный формат email")
+    }else if((this.userData.phone_number.length <= 12
+          && this.userData.phone_number.length >= 14)
+          && this.userData.phone_number.includes("e")){
+      alert("Некорректный формат номера телефона")
     }else{
       this.authService.createUser(this.userData)
         .subscribe(

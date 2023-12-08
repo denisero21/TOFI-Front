@@ -10,29 +10,32 @@ import { API_URL } from "../app.config";
 export class CreditService {
   constructor(private http: HttpClient) { }
 
+  private apiUrl = API_URL + "/users"
+  // private apiUrl = "users"
+
   createCredit(userId: number, creditData: CreateCreditDto): Observable<any> {
-    return this.http.post(`api/users/${userId}/credit`, creditData, { withCredentials: true })
+    return this.http.post(`${this.apiUrl}/${userId}/credit`, creditData, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   getUsersCredits(userId: number): Observable<Credit[]> {
-    return this.http.get<Credit[]>(`api/users/${userId}/credit`, { withCredentials: true })
+    return this.http.get<Credit[]>(`${this.apiUrl}/${userId}/credit`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   payCredit(creditId: number, paymentRequest: MakePaymentRequest): Observable<any> {
-    return this.http.post(`api/users/:user_id/credit/${creditId}/pay`, paymentRequest, { withCredentials: true })
+    return this.http.post(`${this.apiUrl}/:user_id/credit/${creditId}/pay`, paymentRequest, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   getCreditInfo(creditId: number){
-    return this.http.get<CreditInfo>(`api/users/:user_id/credit/${creditId}`, { withCredentials: true })
+    return this.http.get<CreditInfo>(`${this.apiUrl}/:user_id/credit/${creditId}`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );

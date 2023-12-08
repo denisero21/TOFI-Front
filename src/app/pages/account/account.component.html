@@ -6,10 +6,10 @@
     <label>
       <span>No: {{dep.id}} | </span>
       <span>Дата создания: {{dep.date}} | </span>
-      <span>Название счета: {{dep.name}} | </span>
       <span>Валюта: {{dep.currency}} | </span>
+      <span>Доступен: {{!dep.is_blocked}} | </span>
       <span>Сумма на счету: {{dep.balance}} | </span>
-      <span>Доступен: {{!dep.is_blocked}} </span>
+      <span>Название счета: {{dep.name}} </span>
     </label>
     <div class="button-container">
       <button (click)="addMoney(dep.id)">Пополнить счет</button>

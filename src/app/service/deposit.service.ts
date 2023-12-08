@@ -10,22 +10,25 @@ import {API_URL} from "../app.config";
 export class DepositService {
   constructor(private http: HttpClient) { }
 
+  private apiUrl = API_URL
+  // private apiUrl = ""
+
   createDeposit(userId: number, depositData: DepositDto): Observable<any> {
-    return this.http.post(`api/users/${userId}/deposit`, depositData, { withCredentials: true })
+    return this.http.post(`${this.apiUrl}/users/${userId}/deposit`, depositData, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   closeDeposit(depositId: number): Observable<any> {
-    return this.http.post(`api/users/:user_id/deposit/${depositId}/close`, {}, { withCredentials: true })
+    return this.http.post(`${this.apiUrl}/users/:user_id/deposit/${depositId}/close`, {}, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );
   }
 
   getUsersDeposits(userId: number): Observable<Deposit[]> {
-    return this.http.get<any[]>(`api/users/${userId}/deposit`, { withCredentials: true })
+    return this.http.get<any[]>(`${this.apiUrl}/users/${userId}/deposit`, { withCredentials: true })
       .pipe(
         catchError(this.handleError)
       );

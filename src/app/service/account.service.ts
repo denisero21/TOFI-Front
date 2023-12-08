@@ -3,13 +3,13 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {CreateAccountDto, TransferRequest, ChangeAccountDto, Account} from '../models/models';
-import {API_URL} from "../app.config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  private apiUrl = API_URL + '/users';
+  private API_URL = "https://tofi.onrender.com/";
+  private apiUrl = this.API_URL + '/users';
   // private apiUrl = 'users';
   constructor(private http: HttpClient) { }
 

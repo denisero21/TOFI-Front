@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {catchError, Observable, throwError} from 'rxjs';
 import {Deposit, DepositDto} from "../models/models";
-import {API_URL} from "../app.config";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,8 @@ import {API_URL} from "../app.config";
 export class DepositService {
   constructor(private http: HttpClient) { }
 
-  private apiUrl = API_URL
+  private API_URL = "https://tofi.onrender.com";
+  private apiUrl = this.API_URL
   // private apiUrl = ""
 
   createDeposit(userId: number, depositData: DepositDto): Observable<any> {

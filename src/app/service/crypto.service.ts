@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
-import {CryptoRates, Deposit} from "../models/models";
-import {API_URL} from "../app.config";
 import {Crypto_} from "../pages/crypto/crypto";
 
 @Injectable({
@@ -11,8 +9,9 @@ import {Crypto_} from "../pages/crypto/crypto";
 export class CryptoService {
   constructor(private http: HttpClient) { }
 
-  // private apiUrl = API_URL
-  private apiUrl = ""
+  private API_URL = "https://tofi.onrender.com/";
+  private apiUrl = this.API_URL
+  // private apiUrl = ""
 
   getCryptoCurrencyRates(): Observable<Crypto_> {
     return this.http.get<Crypto_>(`${this.apiUrl}/crypto`, { withCredentials: true })

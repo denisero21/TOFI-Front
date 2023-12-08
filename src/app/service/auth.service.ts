@@ -15,8 +15,9 @@ export class AuthService {
 
 
   authenticate(loginData: Login): Observable<JwtToken> {
-    const headers = new HttpHeaders()
-      .set('Access-Control-Allow-Origin', '*')
+    const headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*'
+    })
     return this.http.post<JwtToken>(`${this.apiUrl}/login`, loginData, {headers})
       .pipe(
         catchError(this.handleError)

@@ -56,17 +56,24 @@ export class AccountComponent implements OnInit{
   }
 
   createAccount(){
-    this.accountService.createAccount(this.userId, this.accountData).subscribe(
-      () => {
-        console.log('Account created successfully');
-        this.loadAccounts();
-        alert("Счет успешно открыт")
-        this.isOpenAccount = false
-      },
-      (error) => {
-        console.error('Error creating account:', error);
-      }
-    )
+    if(this.accountData.name == ''
+    || this.accountData.currency == ''){
+      alert("Не все данные заполнены")
+    }else{
+      this.accountService.createAccount(this.userId, this.accountData).subscribe(
+        () => {
+          console.log('Account created successfully');
+          this.loadAccounts();
+          alert("Счет успешно открыт")
+          this.isOpenAccount = false
+          this.accountData.currency = ''
+          this.accountData.name = ''
+        },
+        (error) => {
+          console.error('Error creating account:', error);
+        }
+      )
+    }
   }
 
   openMakeTransfer(){
@@ -75,29 +82,41 @@ export class AccountComponent implements OnInit{
   }
 
   makeTransfer(accountId: number){
-    this.loadAccounts()
-    for(let i = 0; i < this.accounts.length; i++){
-      const acc = this.accounts[i]
-      if(acc.id == accountId){
-        if(!acc.is_blocked){
-          this.accountService.makeTransfer(this.transferData).subscribe(
+    if(this.transferData.sum == null
+    || this.transferData.sender_id == null
+    || this.transferData.receiver_id == null
+    || this.transferData.currency == ''){
+      alert("Не все данные заполнены")
+    }else{
+      this.loadAccounts()
+      for(let i = 0; i < this.accounts.length; i++){
+        const acc = this.accounts[i]
+        if(acc.id == accountId){
+          if(!acc.is_blocked){
+            this.accountService.makeTransfer(this.transferData).subscribe(
               () => {
                 console.log('Transfer done successfully');
-                alert("Перевод произведен")
+                alert("Перевод успешно произведен")
                 this.isMakeTransfer = false
+                this.transferData.currency = ''
+                this.transferData.sender_id = null
+                this.transferData.receiver_id = null
+                this.transferData.sum = null
               },
               (error) => {
                 console.error('Error transferring:', error);
               }
-          )
-        }else{
-          alert("Перевод невозможен, Ващ аккаунт заблокирован")
+            )
+          }else{
+            alert("Перевод невозможен, Ващ аккаунт заблокирован")
+          }
         }
       }
     }
   }
 
   addMoney(accountId: number){
+    this.accountService.addMoney(accountId).subscribe()
     this.accountService.addMoney(accountId).subscribe(
       () => {
         console.log('Money added successfully');

@@ -1,0 +1,138 @@
+.deposit span{
+  margin-bottom: 15px;
+  border-radius: 10px;
+  height: 20px;
+}
+
+.deposit button{
+  border: none;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  border-radius: 7px;
+  width: 125px;
+  height: 25px;
+}
+
+
+.nav {
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.nav button,
+.payment button,
+.create button{
+  border: none;
+  border-radius: 10px;
+  width: 250px;
+  height: 35px;
+  color: aliceblue;
+  background: #EB5F27;
+  margin-right: 10px;
+}
+
+.nav button:hover,
+.payment button:hover,
+.create button:hover{
+  background: #EB2221;
+  transition: .3s ease;
+}
+
+#underline{
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+#cr, #pay{
+  margin-top: 15px;
+}
+
+#left{
+  margin-left: 20px;
+}
+#left1{
+  margin-left: 20px;
+}
+
+.payment{
+  margin-top: 70px;
+}
+
+.payment input,
+.payment select,
+.payment p,
+.payment button{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.payment select {
+  width: 330px;
+  border: 2px solid #EB5F27;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.payment input {
+  width: 325px;
+  border: 2px solid #EB5F27;
+  height: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.payment p{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.payment button{
+  margin-top: 30px;
+  border-radius: 20px;
+}
+
+.create{
+  margin-top: 70px;
+}
+
+.create input,
+.create select,
+.create p,
+.create button{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.create select {
+  width: 330px;
+  border: 2px solid #EB5F27;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.create input {
+  width: 325px;
+  border: 2px solid #EB5F27;
+  height: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.create p{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.create button{
+  margin-top: 30px;
+  border-radius: 20px;
+}

@@ -17,9 +17,9 @@ export class DepositComponent implements OnInit {
     isCreateDeposit: Boolean = false
 
     depositData: DepositDto = {
-        account_id: 1,
+        account_id: null,
         term: 'MONTH_3',
-        amount: 10,
+        amount: null,
         deposit_type: 'REVOCABLE'
     }
   constructor(private route: ActivatedRoute,
@@ -62,21 +62,30 @@ export class DepositComponent implements OnInit {
   }
 
   createDeposit(userId: number): void {
-    this.depositService.createDeposit(userId, this.depositData).subscribe(
-      () => {
-        console.log('Deposit created successfully');
-        this.loadDeposits();
-        alert("Депозит успешно открыт")
-        this.isCreateDeposit = false
-      },
-      (error) => {
-        console.error('Error creating deposit:', error);
-      }
-    );
+    if (this.depositData.account_id == null
+      || this.depositData.deposit_type == ''
+      || this.depositData.amount == null
+      || this.depositData.term == '') {
+      alert("Не все данные заполнены")
+    } else {
+      this.depositService.createDeposit(userId, this.depositData).subscribe(
+        () => {
+          console.log('Deposit created successfully');
+          this.loadDeposits();
+          alert("Депозит успешно открыт")
+          this.isCreateDeposit = false
+          this.depositData.account_id = null
+          this.depositData.amount = null
+        },
+        (error) => {
+          console.error('Error creating deposit:', error);
+        }
+      );
+    }
   }
 
   openCreateDeposit(){
-        this.isCreateDeposit = true
+        this.isCreateDeposit = !this.isCreateDeposit
   }
 
   closeDeposit(depositId: number): void {

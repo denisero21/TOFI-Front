@@ -2,6 +2,7 @@ import {Component, Pipe, PipeTransform} from '@angular/core';
 import {CryptoService} from "../../service/crypto.service";
 import {ActivatedRoute} from "@angular/router";
 import {CryptoRates, Deposit, Rate} from "../../models/models";
+import {Crypto_} from "./crypto";
 
 @Component({
   selector: 'app-crypto',
@@ -9,8 +10,7 @@ import {CryptoRates, Deposit, Rate} from "../../models/models";
   styleUrls: ['./crypto.component.scss']
 })
 export class CryptoComponent {
-    cryptoRatesList: CryptoRates[] = []
-    rates: String = ""
+    rates!: Crypto_;
 
     constructor(private route: ActivatedRoute, private cryptoService: CryptoService) {
     }
@@ -23,7 +23,7 @@ export class CryptoComponent {
 
   getRates(): void {
     this.cryptoService.getCryptoCurrencyRates().subscribe(
-      (data: String) => {
+      (data: Crypto_) => {
         this.rates = data;
         console.log(this.rates)
       },

@@ -1,38 +1,59 @@
-<div class="deposits">
-    <div class="deposit" *ngFor="let dep of accounts">
-        <label>
-            <span>No: {{dep.id}} | </span>
-            <span>Дата создания: {{dep.date}} | </span>
-            <span>Название счета: {{dep.name}} | </span>
-            <span>Валюта: {{dep.currency}} | </span>
-            <span>Сумма на счету: {{dep.balance}} | </span>
-            <span>Доступен: {{!dep.is_blocked}} </span>
-        </label>
-    </div>
-    <button (click)="openMakeTransfer()">Осуществить перевод</button>
-    <div id="makeTransfer" *ngIf="isMakeTransfer">
-        <select [(ngModel)]="transferData.sender_id">
-            <option *ngFor="let account of accounts" [value]="account.id">{{account.id}}</option>
-        </select>
-        <input [(ngModel)]="transferData.receiver_id" type="number">
-        <input [(ngModel)]="transferData.sum" type="number">
-        <select [(ngModel)]="transferData.currency">
-            <option selected>BYN</option>
-            <option >EUR</option>
-            <option >USD</option>
-        </select>
-        <div *ngIf="transferData.sender_id !== null">
-            <button (click)="makeTransfer(transferData.sender_id)">Перевести</button>
-        </div>
-    </div>
-    <button (click)="openAccount()" id="openBut">Открыть счет</button>
-    <div class="openAcc" *ngIf="isOpenAccount">
-        <input [(ngModel)]="accountData.name" type="text">
-        <select [(ngModel)]="accountData.currency">
-            <option selected>BYN</option>
-            <option >EUR</option>
-            <option >USD</option>
-        </select>
-        <button (click)="createAccount()"> Открыть счет </button>
-    </div>
+<div class="deposits" *ngIf="!isMakeTransfer && !isOpenAccount">
+  <div class="deposit" *ngFor="let dep of accounts">
+    <label>
+      <span>No: {{dep.id}} | </span>
+      <span>Дата создания: {{dep.date}} | </span>
+      <span>Название счета: {{dep.name}} | </span>
+      <span>Валюта: {{dep.currency}} | </span>
+      <span>Сумма на счету: {{dep.balance}} | </span>
+      <span>Доступен: {{!dep.is_blocked}} </span>
+      <button (click)="addMoney(dep.id)">Пополнить счет</button>
+      <button (click)="deleteMoney(dep.id)" id="cashout">Обналичить</button>
+    </label>
+    <div id="underline"></div>
+  </div>
 </div>
+
+<div class="nav">
+  <div class="button-container">
+    <button (click)="openMakeTransfer()" *ngIf="!isMakeTransfer" id="make">Осуществить перевод</button>
+    <button (click)="openMakeTransfer()" *ngIf="isMakeTransfer" id="make1">Вернуться к списку аккаунтов</button>
+    <button (click)="openAccount()" id="openBut" *ngIf="!isOpenAccount">Открыть счет</button>
+    <button (click)="openAccount()" id="openBut1" *ngIf="isOpenAccount">Вернуться к списку аккаунтов</button>
+  </div>
+</div>
+
+<div class="makeTransfer" *ngIf="isMakeTransfer">
+  <p>Номер счета отправителя</p>
+  <select [(ngModel)]="transferData.sender_id">
+    <option *ngFor="let account of accounts" [value]="account.id">{{account.id}}</option>
+  </select>
+  <p>Номер счета получателя</p>
+  <input [(ngModel)]="transferData.receiver_id" type="number">
+  <p>Сумма</p>
+  <input [(ngModel)]="transferData.sum" type="number">
+  <p>Валюта</p>
+  <select [(ngModel)]="transferData.currency">
+    <option selected>BYN</option>
+    <option>EUR</option>
+    <option>USD</option>
+  </select>
+  <div *ngIf="transferData.sender_id !== null">
+    <button (click)="makeTransfer(transferData.sender_id)" id="transfer">Перевести</button>
+  </div>
+</div>
+
+<div class="create" *ngIf="isOpenAccount">
+  <p>Название счета</p>
+  <input [(ngModel)]="accountData.name" type="text">
+  <p>Валюта</p>
+  <select [(ngModel)]="accountData.currency">
+    <option selected>BYN</option>
+    <option>EUR</option>
+    <option>USD</option>
+  </select>
+  <p>
+    <button (click)="createAccount()" id="create"> Открыть счет</button>
+  </p>
+</div>
+

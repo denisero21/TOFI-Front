@@ -6,11 +6,13 @@ input{
   text-align: center;
   border-radius: 10px;
   height: 30px;
+  border: solid 2px;
   border-color: #EB5F27;
 }
 
 input:hover{
   border-color: #EB2221;
+  transition: .3s ease;
 }
 
 #log, #reg{
@@ -18,19 +20,55 @@ input:hover{
 }
 
 button{
+  border: none;
   display:block;
   margin: 0 auto;
   margin-bottom: 20px;
-  border-radius: 10px;
+  border-radius: 30px;
   width: 250px;
   height: 35px;
   color: aliceblue;
   background: #EB5F27;
-  border-color: #EB5F27;
+}
+
+
+.two-factor input,
+.two-factor select,
+.two-factor p,
+.two-factor button{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.two-factor select {
+  width: 330px;
+  border: 2px solid #EB5F27;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.two-factor input {
+  width: 325px;
+  border: 2px solid #EB5F27;
+  height: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.two-factor p{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.two-factor button{
+  margin-top: 30px;
+  border-radius: 20px;
 }
 
 button:hover{
   background: #EB2221;
+  transition: .3s ease;
 }
 
 label{
@@ -39,5 +77,7 @@ label{
   text-align: center;
   margin-bottom: 10px;
 }
+
+
 
 

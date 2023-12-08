@@ -1,0 +1,135 @@
+.deposit span{
+  margin-bottom: 15px;
+  border-radius: 10px;
+  height: 25px;
+}
+
+.deposit button{
+  border: none;
+  margin-left: 15px;
+  border-radius: 7px;
+  width: 125px;
+  height: 25px;
+}
+
+.deposit button:hover{
+  background: #C2C2C2FF;
+  border-color: #C2C2C2FF;
+  color: black;
+  transition: .3s ease;
+}
+
+#underline{
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.deposit #cashout{
+  margin-left: 25px;
+}
+
+#openBut, #openBut1, #make, #make1, #transfer, #create{
+  border-radius: 10px;
+  border: none;
+  width: 250px;
+  height: 35px;
+  color: aliceblue;
+  background: #EB5F27;
+}
+
+#openBut:hover, #openBut1:hover, #make:hover, #make1:hover, #transfer:hover, #create:hover{
+  background: #EB2221;
+  transition: .3s ease;
+}
+
+#openBut, #openBut1{
+  margin-left: 20px;
+}
+
+.nav {
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.create{
+  margin-top: 70px;
+}
+
+.create input,
+.create select,
+.create p,
+.create button{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.create select {
+  width: 330px;
+  border: 2px solid #EB5F27;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.create input {
+  width: 325px;
+  border: 2px solid #EB5F27;
+  height: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.create p{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.create #create{
+  margin-top: 30px;
+  border-radius: 20px;
+}
+
+
+.makeTransfer{
+  margin-top: 70px;
+}
+
+.makeTransfer input,
+.makeTransfer select,
+.makeTransfer p,
+.makeTransfer button{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.makeTransfer select {
+  width: 330px;
+  border: 2px solid #EB5F27;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.makeTransfer input {
+  width: 325px;
+  border: 2px solid #EB5F27;
+  height: 25px;
+  border-radius: 10px;
+}
+
+.makeTransfer p{
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.makeTransfer #transfer{
+  margin-top: 30px;
+  border-radius: 20px;
+}
+

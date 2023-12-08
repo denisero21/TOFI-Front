@@ -1,37 +1,59 @@
-<div class="deposit" *ngFor="let dep of credits">
+<div *ngIf="!isPayCredit && !isCreateCredit">
+  <div class="deposit" *ngFor="let dep of credits">
     <label>
-        <span>No: {{dep.id}} | </span>
-        <span>Название счета: {{dep.name}} | </span>
-        <span>Дата оформления: {{dep.date}} | </span>
-        <span>Следующая дата оплаты: {{dep.next_pay_date}} | </span>
-        <span>Период: {{dep.term}} | </span>
+      <span>No: {{dep.id}} | </span>
+      <span>Дата оформления: {{dep.date}} | </span>
+      <span>Следующая дата оплаты: {{dep.next_pay_date}} | </span>
+      <span>Период: {{dep.term}} | </span>
+      <span>Взятая сумма: {{dep.amount_given}} | </span>
+      <span>Сумма долга: {{dep.debt}} | </span>
+      <p>
         <span>Ежемесячная сумма оплаты: {{dep.per_month_pay_sum}} | </span>
         <span>Пеня: {{dep.penya}} | </span>
+      </p>
     </label>
+    <div id="underline"></div>
+  </div>
 </div>
 
-<button (click)="openPay()">Оплатить кредит</button>
-<div class="payment" *ngIf="isPayCredit">
-    <select [(ngModel)]="creditId">
-        <option *ngFor="let credit of credits" [value]="credit.id">{{credit.id}}</option>
-    </select>
-    <input [(ngModel)]="payData.sum_to_pay" type="number">
-    <div *ngIf="creditId != null">
-        <button (click)="payCredit(creditId)">Оплатить кредит</button>
-    </div>
+<div class="nav">
+  <div class="button-container">
+    <button (click)="openPay()" *ngIf="!isPayCredit">Оплатить кредит</button>
+    <button (click)="openPay()" *ngIf="isPayCredit">Вернуться к списку кредитов</button>
+    <button (click)="openCreate()" *ngIf="!isCreateCredit" id="left">Открыть кредит</button>
+    <button (click)="openCreate()" *ngIf="isCreateCredit" id="left1">Вернуться к списку кредитов</button>
+  </div>
 </div>
-<button (click)="openCreate()">Открыть кредит</button>
+
+
+<div class="payment" *ngIf="isPayCredit">
+  <p>Номер кредита</p>
+  <select [(ngModel)]="creditId">
+    <option *ngFor="let credit of credits" [value]="credit.id">{{credit.id}}</option>
+  </select>
+  <p>Сумма оплаты</p>
+  <input [(ngModel)]="payData.sum_to_pay" type="number">
+  <div *ngIf="creditId != null">
+    <button (click)="payCredit(creditId)" *ngIf="creditId !== null" id="pay">Оплатить кредит</button>
+  </div>
+</div>
+
+
 <div class="create" *ngIf="isCreateCredit">
-    <select [(ngModel)]="creditData.account_id">
-        <option *ngFor="let account of accounts" [value]="account.id">{{account.id}}</option>
-    </select>
-    <select [(ngModel)]="creditData.term">
-        <option selected>MONTH_3</option>
-        <option>MONTH_6</option>
-        <option>MONTH_12</option>
-    </select>
-    <input [(ngModel)]="creditData.amount_given" type="number">
-    <button (click)="createCredit()">Открыть кредит</button>
+  <p>Номер счета</p>
+  <select [(ngModel)]="creditData.account_id">
+    <option *ngFor="let account of accounts" [value]="account.id">{{account.id}}</option>
+  </select>
+  <p>Период</p>
+  <select [(ngModel)]="creditData.term">
+    <option selected>MONTH_3</option>
+    <option>MONTH_6</option>
+    <option>MONTH_12</option>
+    <option>PERPETUAL</option>
+  </select>
+  <p>Сумма</p>
+  <input [(ngModel)]="creditData.amount_given" type="number">
+  <p><button (click)="createCredit()" id="cr" *ngIf="creditData.account_id !== null">Открыть кредит</button></p>
 </div>
 
 

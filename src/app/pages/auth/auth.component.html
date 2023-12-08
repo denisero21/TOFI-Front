@@ -8,13 +8,13 @@
   <button (click)="register()" *ngIf="!isRegister">Регистрация</button>
 </div>
 <p></p>
-<div class="two-factor">
-  <label *ngIf="isTwoFactor && !isRegister">Код подтверждения</label>
-  <input [(ngModel)]="otpData.otp_code" *ngIf="isTwoFactor && !isRegister" placeholder="otp code" type="number">
-  <button *ngIf="isTwoFactor && !isRegister" (click)="confirmOtp()">Подтвердить авторизацию</button>
-  <button *ngIf="isTwoFactor && isEnableToRefresh && !isRegister" (click)="refreshOtp()">Отправить код еще раз</button>
+<div class="two-factor" *ngIf="isTwoFactor && !isRegister">
+  <label>Код подтверждения</label>
+  <input [(ngModel)]="otpData.otp_code" placeholder="otp code" type="number">
+  <button (click)="confirmOtp()">Подтвердить авторизацию</button>
+  <button *ngIf="isEnableToRefresh" (click)="refreshOtp()">Отправить код еще раз</button>
 </div>
-<div>
+<div class="reg">
   <label *ngIf="isRegister" id="reg">Регистрация</label>
   <label *ngIf="isRegister">Имя пользователя</label>
   <input [(ngModel)]="userData.full_name" type="text" *ngIf="isRegister">

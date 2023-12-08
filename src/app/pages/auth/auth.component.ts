@@ -42,7 +42,7 @@ export class AuthComponent {
   }
 
   otpData: ConfirmOtpRequest = {
-    otp_code: 0
+    otp_code: null
   };
 
   setIsEnableToRefresh(){
@@ -52,36 +52,41 @@ export class AuthComponent {
   constructor(private router: Router,private authService: AuthService, private appComponent: AppComponent) {}
 
   authenticate(): void {
-    this.authService.authenticate(this.loginData)
-      .subscribe(
-        (jwtToken) => {
+    if(this.loginData.login == ''
+    || this.loginData.password == ''){
+      alert("Не все данные заполнены")
+    }else{
+      this.authService.authenticate(this.loginData)
+        .subscribe(
+          (jwtToken) => {
             sessionStorage.setItem('token', jwtToken.token.toString())
-          if (jwtToken.otpExpiration != null){
+            if (jwtToken.otpExpiration != null){
               sessionStorage.setItem('otp_exp', jwtToken.otpExpiration.toString())
+            }
+            console.log('Authentication successful:', jwtToken);
+            const decodedToken: any = jwtDecode(jwtToken.token.toString());
+            console.log('Decoded Token:', decodedToken);
+            this.userAuth.full_name = decodedToken.full_name
+            this.userAuth.two_factor_auth = decodedToken.two_factor
+            this.userAuth.email = decodedToken.email
+            this.userAuth.user_id = decodedToken.user_id
+            this.appComponent.setUser(this.userAuth)
+            if (decodedToken.two_factor){
+              alert('Код подтверждения был отправлен на почту')
+              this.isTwoFactor=true
+              this.startTwoMinutesCountdown()
+            }else{
+              alert('Успешная авторизация')
+              this.loginData.login = ''
+              this.loginData.password = ''
+              this.router.navigate([''])
+            }
+          },
+          (error) => {
+            console.error('Authentication failed:', error);
           }
-          console.log('Authentication successful:', jwtToken);
-          const decodedToken: any = jwtDecode(jwtToken.token.toString());
-          console.log('Decoded Token:', decodedToken);
-          this.userAuth.full_name = decodedToken.full_name
-          this.userAuth.two_factor_auth = decodedToken.two_factor
-          this.userAuth.email = decodedToken.email
-          this.userAuth.user_id = decodedToken.user_id
-          this.appComponent.setUser(this.userAuth)
-          if (decodedToken.two_factor){
-            alert('Код подтверждения был отправлен на почту')
-            this.isTwoFactor=true
-            this.startTwoMinutesCountdown()
-          }else{
-            alert('Успешная авторизация')
-            this.loginData.login = ''
-            this.loginData.password = ''
-            this.router.navigate([''])
-          }
-        },
-        (error) => {
-          console.error('Authentication failed:', error);
-        }
-      );
+        );
+    }
   }
 
   getAuthUser(){
@@ -89,22 +94,26 @@ export class AuthComponent {
   }
 
   confirmOtp(): void {
-    this.authService.confirmOtp(this.otpData)
-      .subscribe(
-        (jwtToken) => {
-          console.log('OTP confirmation successful:', jwtToken);
+    if(this.otpData.otp_code == null){
+      alert("Введите код подтверждения")
+    }else{
+      this.authService.confirmOtp(this.otpData)
+        .subscribe(
+          (jwtToken) => {
+            console.log('OTP confirmation successful:', jwtToken);
             sessionStorage.setItem('token', jwtToken.token.toString())
-          alert('Успешная авторизация')
-          this.isTwoFactor=false
-          this.isEnableToRefresh=false
-          this.otpData.otp_code=0;
-          this.router.navigate([''])
-        },
-        (error) => {
-          console.error('OTP confirmation failed:', error);
+            alert('Успешная авторизация')
+            this.isTwoFactor=false
+            this.isEnableToRefresh=false
+            this.otpData.otp_code=null;
+            this.router.navigate([''])
+          },
+          (error) => {
+            console.error('OTP confirmation failed:', error);
 
-        }
-      );
+          }
+        );
+    }
   }
 
   refreshOtp(): void {
@@ -137,21 +146,32 @@ export class AuthComponent {
   }
 
   createUser(): void{
-    this.authService.createUser(this.userData)
-      .subscribe(
-        () => {
-          if (this.userData.password === this.repeatPassword){
-            console.log('User created successfully');
-            alert("Пользователь успешно зарегистрирован")
-            this.isRegister=false
-          }else{
-            alert("Пароли не совпадают")
+    if (this.userData.email == ''
+      || this.userData.full_name == ''
+      || this.userData.password == ''
+      || this.userData.phone_number == '') {
+      alert("Не все данные заполнены")
+    }else{
+      this.authService.createUser(this.userData)
+        .subscribe(
+          () => {
+            if (this.userData.password === this.repeatPassword){
+              console.log('User created successfully');
+              alert("Пользователь успешно зарегистрирован")
+              this.isRegister=false
+              this.userData.email = ''
+              this.userData.full_name = ''
+              this.userData.password = ''
+              this.userData.phone_number = ''
+            }else{
+              alert("Пароли не совпадают")
+            }
+          },
+          (error) => {
+            console.error('User creation failed:', error);
           }
-        },
-        (error) => {
-          console.error('User creation failed:', error);
-        }
-      );
+        );
+    }
   }
 
 }

@@ -1,15 +1,27 @@
-#openBut, #createBut{
-  margin-bottom: 20px;
+#openBut,
+#createBut,
+#openBut1,
+.create button{
+  border: none;
   border-radius: 10px;
   width: 250px;
   height: 35px;
   color: aliceblue;
   background: #EB5F27;
-  border-color: #EB5F27;
 }
 
-#openBut:hover, #createBut:hover{
+#openBut:hover,
+#createBut:hover,
+#openBut1:hover,
+{
   background: #EB2221;
+  transition: .3s ease;
+}
+
+#underline{
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 15px;
 }
 
 .deposit label{
@@ -21,8 +33,7 @@
 }
 
 .deposit button{
-  display: flex;
-  flex-direction: column;
+  border: none;
   margin-left: 10px;
   border-radius: 7px;
   width: 125px;
@@ -30,6 +41,48 @@
 }
 
 .deposit button:hover{
-  background: #ececec;
-  border-color: #ececec;
+  background: #C2C2C2FF;
+  border-color: #C2C2C2FF;
+  color: black;
+  transition: .3s ease;
+}
+
+.create{
+  margin-top: 70px;
+}
+
+.create input,
+ select,
+ p,
+ button{
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#openBut1{
+  margin-bottom: 15px;
+}
+
+.create select {
+  width: 330px;
+  border: 2px solid #EB5F27;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.create input {
+  width: 325px;
+  border: 2px solid #EB5F27;
+  height: 25px;
+  border-radius: 10px;
+}
+
+.create p{
+  margin-bottom: 10px;
+}
+
+.create #createBut{
+  margin-top: 20px;
+  border-radius: 20px;
 }

@@ -80,29 +80,50 @@ export class CreditComponent implements OnInit{
   }
 
   createCredit(): void{
-    this.creditService.createCredit(this.userId, this.creditData).subscribe(
-      () => {
-        console.log('Credit created successfully');
-        this.loadCredits();
-        alert("Кредит успешно открыт")
-      },
-      (error) => {
-        console.error('Error creating credit:', error);
-      }
-    )
+    if (this.creditData.term == ''
+    || this.creditData.amount_given == null
+    || this.creditData.account_id == null){
+      alert("Не все данные заполнены")
+    }else{
+      this.creditService.createCredit(this.userId, this.creditData).subscribe(
+        () => {
+          console.log('Credit created successfully');
+          this.loadCredits();
+          alert("Кредит успешно открыт")
+          this.creditData.account_id = null
+          this.creditData.amount_given = null
+          this.creditData.term = ''
+        },
+        (error) => {
+          console.error('Error creating credit:', error);
+        }
+      )
+    }
   }
 
   payCredit(creditId: number): void{
-    this.creditService.payCredit(creditId, this.payData).subscribe(
-      () => {
-        console.log('Credit paid successfully');
-        this.loadCredits();
-        alert("Кредит успешно оплачен")
-      },
-      (error) => {
-        console.error('Error paying credit:', error);
+    if(this.payData.sum_to_pay == null){
+      alert("Введите сумму платежа")
+    }else{
+      const date = new Date()
+      this.getCreditInfo(creditId)
+      if (date < this.credit!.next_pay_date){
+        alert("Рановато для оплаты кредита")
+      }else{
+        this.creditService.payCredit(creditId, this.payData).subscribe(
+          () => {
+            console.log('Credit paid successfully');
+            this.loadCredits();
+            alert("Кредит успешно оплачен")
+            this.payData.sum_to_pay = null
+          },
+          (error) => {
+            console.error('Error paying credit:', error);
+          }
+        )
       }
-    )
+    }
+
   }
 
   getCreditInfo(creditId: number){

@@ -10,16 +10,23 @@
       <span *ngIf="dep.status === 'CLOSED'"> | Сумма начисления: {{dep.compensationAmount}} </span>
       <button (click)="closeDeposit(dep.id)" *ngIf="dep.status!=='CLOSED'">Закрыть депозит</button>
     </label>
+    <div id="underline"></div>
   </div>
-  <button (click)="openCreateDeposit()" id="openBut">Открыть депозит</button>
 </div>
 
+<p>
+  <button (click)="openCreateDeposit()" id="openBut" *ngIf="!isCreateDeposit">Открыть депозит</button>
+  <button (click)="openCreateDeposit()" id="openBut1" *ngIf="isCreateDeposit">Вернуться к списку депозитов</button>
+</p>
+
 <div class="create" *ngIf="isCreateDeposit">
+  <p>Номер счета</p>
   <p>
     <select [(ngModel)]="depositData.account_id">
       <option *ngFor="let account of accounts" [value]="account.id">{{account.id}}</option>
     </select>
   </p>
+  <p>Период депозита</p>
   <p>
     <select [(ngModel)]="depositData.term">
       <option selected>MONTH_3</option>
@@ -27,7 +34,9 @@
       <option>MONTH_12</option>
     </select>
   </p>
-  <p><input [(ngModel)]="depositData.amount" type="number" placeholder="Сумма депозита"></p>
+  <p>Сумма депозита</p>
+  <p><input [(ngModel)]="depositData.amount" type="number"></p>
+  <p>Тип депозита</p>
   <p>
     <select [(ngModel)]="depositData.deposit_type">
       <option selected>REVOCABLE</option>

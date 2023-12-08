@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import { catchError, Observable, throwError } from 'rxjs';
 import {JwtToken, Login, ConfirmOtpRequest, UserDto} from "../models/models";
-// import {API_URL} from "../app.config";
 
 @Injectable({
   providedIn: 'root'

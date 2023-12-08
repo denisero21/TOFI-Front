@@ -86,6 +86,7 @@ export class AppComponent implements OnInit{
   logOut(){
     sessionStorage.removeItem('token')
     this.userAuth.user_id = null
+    this.router.navigate([''])
   }
 
 }

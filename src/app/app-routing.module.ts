@@ -9,7 +9,7 @@ import {CryptoComponent} from "./pages/crypto/crypto.component";
 import {TransferComponent} from "./pages/transfer/transfer.component";
 
 export const routes: Routes = [
-  {path: 'home', component: HomeComponent},
+  {path: '', component: HomeComponent},
   {path: 'crypto', component: CryptoComponent},
   {path: 'auth', component: AuthComponent},
   {path: 'users/:user_id/deposit', component: DepositComponent},

@@ -1,7 +1,16 @@
 // token.interceptor.ts
-import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {inject, Injectable} from '@angular/core';
+import {
+  HttpInterceptor,
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptorFn,
+  HttpErrorResponse
+} from '@angular/common/http';
+import {catchError, Observable, throwError} from 'rxjs';
+import {TOKEN_KEY} from "./service/constants";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -23,3 +32,27 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(request);
   }
 }
+
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  // const authService = inject(AuthService);
+  const token = localStorage.getItem(TOKEN_KEY);
+  const router = inject(Router);
+
+  if (req.withCredentials && token) {
+    req = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+  return next(req).pipe(
+    catchError((err) => {
+      if (err instanceof HttpErrorResponse && err.status === 403) {
+        localStorage.removeItem(TOKEN_KEY);
+        router.navigateByUrl("auth");
+      }
+      return throwError(() => err);
+    })
+  );
+};
+

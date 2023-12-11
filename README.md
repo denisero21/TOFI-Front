@@ -27,20 +27,22 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 
+```json
+ [
+    {
+      "context": ["/local"],
+      "target": "http://localhost:8080",
+      "changeOrigin": true,
+      "logLevel": "debug",
+      "secure": false,
+      "pathRewrite": {"^/local":  ""},
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+        "Access-Control-Allow-Credentials": "true"
+      }
+    },
+ ]
+```
 
-// [
-//    {
-//      "context": ["/local"],
-//      "target": "http://localhost:8080",
-//      "changeOrigin": true,
-//      "logLevel": "debug",
-//      "secure": false,
-//      "pathRewrite": {"^/local":  ""},
-//      "headers": {
-//        "Access-Control-Allow-Origin": "*",
-//        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-//        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
-//        "Access-Control-Allow-Credentials": "true"
-//      }
-//    },
-// ]
